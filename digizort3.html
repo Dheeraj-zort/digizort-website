@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIGIZORT - Professional Services</title>
+    <style>
+        /* Basic CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .services {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .service {
+            flex: 1 1 calc(33.333% - 20px);
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .service img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .service button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .service button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px 0;
+            background-color: #007bff;
+            color: white;
+        }
+
+        .upload-box {
+            margin-top: 20px;
+            display: none; /* Hidden by default */
+        }
+
+        .upload-box input, .upload-box textarea {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .upload-box button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .upload-box button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <h1>DIGIZORT</h1>
+        <div>
+            <a href="#home">Home</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <div id="home" class="container">
+        <h2>Welcome to DIGIZORT</h2>
+        <p>Your one-stop solution for professional creative services, located in Kerala, India. We specialize in transforming your ideas into stunning visuals and designs.</p>
+    </div>
+
+    <div id="services" class="container">
+        <h2>Our Services</h2>
+        <div class="services">
+            <div class="service">
+                <h3>Photo Editing</h3>
+                <button onclick="selectService('Photo Editing')">Select</button>
+            </div>
+            <div class="service">
+                <h3>Video Editing</h3>
+                <button onclick="selectService('Video Editing')">Select</button>
+            </div>
+            <div class="service">
+                <h3>Logo Designing</h3>
+                <button onclick="selectService('Logo Designing')">Select</button>
+            </div>
+            <div class="service">
+                <h3>Poster Designing</h3>
+                <button onclick="selectService('Poster Designing')">Select</button>
+            </div>
+            <div class="service">
+                <h3>Notice Designing</h3>
+                <button onclick="selectService('Notice Designing')">Select</button>
+            </div>
+            <div class="service">
+                <h3>Business Card Designing</h3>
+                <button onclick="selectService('Business Card Designing')">Select</button>
+            </div>
+        </div>
+
+        <div class="upload-box" id="uploadBox">
+            <h2 id="serviceTitle">Upload Your Work Details</h2>
+            <input type="file" id="uploadFile">
+            <textarea id="description" rows="4" placeholder="Describe your requirements"></textarea>
+            <button onclick="sendDetails()">Send</button>
+        </div>
+    </div>
+
+    <div id="contact" class="container">
+        <h2>Contact Us</h2>
+        <ul class="contact">
+            <li><strong>Phone:</strong> 8129043397</li>
+            <li><strong>Email:</strong> <a href="mailto:digizort@gmail.com">digizort@gmail.com</a></li>
+            <li><strong>Location:</strong> Baratha, Kerala, India</li>
+        </ul>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 DIGIZORT. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function selectService(service) {
+            document.getElementById('serviceTitle').innerText = `Service: ${service}`;
+            document.getElementById('uploadBox').style.display = 'block';
+            document.getElementById('uploadBox').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function sendDetails() {
+            const service = document.getElementById('serviceTitle').innerText;
+            const file = document.getElementById('uploadFile').value;
+            const description = document.getElementById('description').value;
+
+            if (!file || !description) {
+                alert('Please upload a file and provide a description.');
+                return;
+            }
+
+            const whatsappMessage = `${service}\nDescription: ${description}`;
+            const whatsappLink = `https://wa.me/8129043397?text=${encodeURIComponent(whatsappMessage)}`;
+
+            window.open(whatsappLink, '_blank');
+
+            const emailBody = `${service}\nFile: ${file}\nDescription: ${description}`;
+            const emailLink = `mailto:digizort@gmail.com?subject=Service Request: ${service}&body=${encodeURIComponent(emailBody)}`;
+
+            window.open(emailLink, '_blank');
+
+            alert('Details sent successfully!');
+        }
+    </script>
+</body>
+</html>
